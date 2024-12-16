@@ -14,3 +14,14 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Tag(models.Model):
+    
+    tag = models.CharField(max_length=50, verbose_name='Тэг')
+    scope = models.ManyToManyField(Article, through='Scope', through_fields=('article', 'tag'))
+
+
+class Scope(models.Model):
+    title = models.ForeignKey(Article, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
